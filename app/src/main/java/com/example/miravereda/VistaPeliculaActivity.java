@@ -3,10 +3,12 @@ package com.example.miravereda;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +23,8 @@ public class VistaPeliculaActivity extends AppCompatActivity {
     TextView tvactor;
     EditText etprecio;
     RatingBar rbnota;
-    double notamedia;
+    int notamedia;
+    int votos;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,13 +37,28 @@ public class VistaPeliculaActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        ivpelicula=findViewById(R.id.ivpelicula);
-        tvtitulo=findViewById(R.id.tvtitulo);
-        tvactor=findViewById(R.id.tvactor);
-        etprecio=findViewById(R.id.etprecio);
-        rbnota=findViewById(R.id.rbnota);
+        ivpelicula.findViewById(R.id.ivpelicula);
+        tvtitulo.findViewById(R.id.tvtitulo);
+        tvactor.findViewById(R.id.tvactor);
+        etprecio.findViewById(R.id.etprecio);
+        rbnota.findViewById(R.id.rbnota);
+
+
+
+        public void votarPelicula(){
+            rbnota.setOnClickListener(v -> {
+                int rating= (int) rbnota.getRating();
+                Toast.makeText(getApplicationContext(),rating,Toast.LENGTH_LONG).show();
+
+
+
+        }
+
 
     }
+    }
+}
+
 
 
 
