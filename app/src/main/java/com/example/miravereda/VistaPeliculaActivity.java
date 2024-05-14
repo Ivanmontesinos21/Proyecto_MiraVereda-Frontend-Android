@@ -34,11 +34,11 @@ public class VistaPeliculaActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        ivpelicula.findViewById(R.id.ivpelicula);
-        tvtitulo.findViewById(R.id.tvtitulo);
-        tvactor.findViewById(R.id.tvactor);
-        etprecio.findViewById(R.id.etprecio);
-        rbnota.findViewById(rbnota);
+        ivpelicula=findViewById(R.id.ivpelicula);
+        tvtitulo=findViewById(R.id.tvtitulo);
+        tvactor=findViewById(R.id.tvactor);
+        etprecio=findViewById(R.id.etprecio);
+        rbnota=findViewById(R.id.rbnota);
 
     }
 
