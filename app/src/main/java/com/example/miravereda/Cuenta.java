@@ -78,6 +78,10 @@ public class Cuenta {
         return domicilio;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public void setContrasenya(String contrasenya) {
         this.contrasenya = contrasenya;
     }

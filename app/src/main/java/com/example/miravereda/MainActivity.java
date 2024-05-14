@@ -7,20 +7,14 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import kotlin.jvm.internal.PropertyReference0Impl;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
         createAccount.setOnClickListener(v -> {
             Intent intent=new Intent(getApplicationContext(), NewUserActivity.class);
             intent.putExtra("username",usertext.getText().toString());
+            activityResultLauncher.launch(intent);
+        });
+        forgetPassword.setOnClickListener(v -> {
+            Intent intent=new Intent(getApplicationContext(), UpdateCuentaActivity.class);
             activityResultLauncher.launch(intent);
         });
 

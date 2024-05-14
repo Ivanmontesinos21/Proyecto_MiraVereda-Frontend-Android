@@ -54,15 +54,7 @@ public class NewUserActivity extends AppCompatActivity {
                     username.toString().isEmpty() || password.toString().isEmpty()) {
                 Toast.makeText(this, "Porfavor rellena todos los campos son requeridos", Toast.LENGTH_LONG).show();
             } else {
-                Cuenta cuenta = new Cuenta(
-                        username.getText().toString(),
-                        nombre.getText().toString(),
-                        apellidos.getText().toString(),
-                        new Date(),
-                        mail.getText().toString(),
-                        password.getText().toString()
-                );
-                cuentaRepository.anyadirCuentas(cuenta);
+                //Aqui hay que añadir la cuenta
 
 
             }
