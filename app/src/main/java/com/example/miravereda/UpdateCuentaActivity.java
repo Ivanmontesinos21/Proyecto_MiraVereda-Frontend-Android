@@ -33,12 +33,20 @@ public class UpdateCuentaActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        update=findViewById(R.id.updatebutton);
+        newusername=findViewById(R.id.newUsername);
+        newpassword=findViewById(R.id.newPassword);
 
         ActivityResultLauncher<Intent> activityResultLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
             if (result.getResultCode()==RESULT_CANCELED)
                 Toast.makeText(this,"Volviendo atras",Toast.LENGTH_LONG);
-            else if (result.getResultCode()==RESULT_OK){
-                Toast.makeText(this,"Cambiando datos de usuario" ,Toast.LENGTH_LONG).show();
+            else if (result.getResultCode()==RESULT_OK) {
+                Toast.makeText(this, "Cambiando datos de usuario", Toast.LENGTH_LONG).show();
+            }
+        });
+        update.setOnClickListener(v->{
+            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+            activityResultLauncher.launch(intent);
         });
 
 
