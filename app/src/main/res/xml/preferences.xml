@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Configuración de servidor">
+        <EditTextPreference
+            android:key="server_url"
+            android:title="URL del servidor"
+            android:summary="Introduce la URL del servidor"
+            android:inputType="text"
+            android:dialogTitle="Introduce la URL del servidor"/>
+        <EditTextPreference
+            android:key="api_endpoint"
+            android:title="Endpoint de la API"
+            android:summary="Introduce el endpoint de la API"
+            android:inputType="text"
+            android:dialogTitle="Introduce el endpoint de la API"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Preferencias de aplicación">
+        <SpinnerPreference
+            android:key="language"
+            android:title="Idioma"
+            android:summary="Selecciona el idioma de la aplicación"
+            android:dialogTitle="Selecciona el idioma de la aplicación"/>
+        <Preference
+            android:key="theme_title"
+            android:title="Tema de la aplicación" />
+        <RadioButtonPreference
+            android:key="theme_light"
+            android:title="Claro"
+            android:summary="Selecciona el tema claro de la aplicación"/>
+        <RadioButtonPreference
+            android:key="theme_dark"
+            android:title="Oscuro"
+            android:summary="Selecciona el tema oscuro de la aplicación"/>
+        <RadioButtonPreference
+            android:key="theme_system"
+            android:title="Sistema"
+            android:summary="Utiliza el tema del sistema"/>
+    </PreferenceCategory>
+</PreferenceScreen>
