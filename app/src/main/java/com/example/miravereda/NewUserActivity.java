@@ -17,7 +17,6 @@ import java.util.Date;
 
 public class NewUserActivity extends AppCompatActivity {
 
-    private CuentaRepository cuentaRepository;
 
     private Button crearusuario;
 
