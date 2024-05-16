@@ -26,45 +26,38 @@ public class RadioButtonPreference extends Preference {
         SharedPreferences sharedPreferences = getSharedPreferences();
         String selectedTheme = sharedPreferences.getString("theme", "system");
 
+        lightRadioButton.setChecked("light".equals(selectedTheme));
+        darkRadioButton.setChecked("dark".equals(selectedTheme));
+        systemRadioButton.setChecked("system".equals(selectedTheme));
 
-        switch (selectedTheme) {
-            case "light":
-                lightRadioButton.setChecked(true);
-                break;
-            case "dark":
-                darkRadioButton.setChecked(true);
-                break;
-            case "system":
-                systemRadioButton.setChecked(true);
-                break;
+
+        lightRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveTheme("light");
+            }
+
+
+        });
+        darkRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveTheme("dark");
+            }
+        });
+        systemRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveTheme("system");
+            }
+        });
+    }
+        private void saveTheme(String theme) {
+            SharedPreferences.Editor editor=
+                    getSharedPreferences().edit().putString("theme",theme);
+            editor.apply();
         }
 
 
-        View.OnClickListener radioButtonClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RadioButton radioButton = (RadioButton) view;
-
-                // Guardar el tema seleccionado en las SharedPreferences
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                switch (radioButton.getId()) {
-                    case R.id.radio_light:
-                        editor.putString("theme", "light");
-                        break;
-                    case R.id.radio_dark:
-                        editor.putString("theme", "dark");
-                        break;
-                    case R.id.radio_system:
-                        editor.putString("theme", "system");
-                        break;
-                }
-                editor.apply();
-            }
-        };
-
-
-        lightRadioButton.setOnClickListener(radioButtonClickListener);
-        darkRadioButton.setOnClickListener(radioButtonClickListener);
-        systemRadioButton.setOnClickListener(radioButtonClickListener);
     }
-}
+
