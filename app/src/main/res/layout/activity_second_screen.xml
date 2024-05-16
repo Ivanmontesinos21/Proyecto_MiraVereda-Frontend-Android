@@ -5,37 +5,30 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CarritoActivity">
+    tools:context=".SecondScreen">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewcarrito"
-        android:layout_width="395dp"
-        android:layout_height="611dp"
+        android:id="@+id/recyclerCartelera"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/precio"
+    <ImageButton
+        android:id="@+id/ircarrito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/carrito"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewcarrito" />
-
-    <ImageView
-        android:id="@+id/carrito"
-        android:layout_width="79dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewcarrito"
-        app:srcCompat="@mipmap/carrito" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerCartelera"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerCartelera"
+        app:srcCompat="@mipmap/ic_carritoflotante" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,11 @@ public class MainActivity extends AppCompatActivity {
 
     private TextInputEditText usertext;
 
+    private TextInputEditText password;
+
     private TextInputLayout iusertext;
+
+    boolean valido;
 
 
     @Override
@@ -44,10 +48,11 @@ public class MainActivity extends AppCompatActivity {
         forgetPassword=findViewById(R.id.recordarcontrasenya);
         createAccount=findViewById(R.id.createAccount);
         usertext=findViewById(R.id.username);
+        password=findViewById(R.id.password);
 
         ActivityResultLauncher<Intent> activityResultLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
            if (result.getResultCode()==RESULT_CANCELED)
-               Toast.makeText(this,"Volviendo atras",Toast.LENGTH_LONG);
+               Toast.makeText(this,"Volviendo atras",Toast.LENGTH_LONG).show();
            else if (result.getResultCode()==RESULT_OK){
                Intent intent= result.getData();
                String username=intent.getExtras().toString();
@@ -66,10 +71,25 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        if (iniciarSesion(usertext.getText().toString(),password.getText().toString())){
+            iniciarSesion.setOnClickListener(v->{
+                Intent intent=new Intent(getApplicationContext(), SecondScreen.class);
+                activityResultLauncher.launch(intent);
+            });
+        }else
+            Toast.makeText(this,"No se puede iniciar Sesion",Toast.LENGTH_LONG).show();
+    }
 
+    /***
+     * Metodo que devolvera un booleano que comrpobara si se ha podido iniciar sesion
+     * @param username sera el username recogido en el campo de username
+     * @param contraseña la contraseña sera la recogida en el campo contraseña
+     * @return devuelve un booleano para comprobar el inicio de sesion
+     */
 
+    public static boolean iniciarSesion(String username,String contraseña){
 
-
+        return false;
 
     }
 }

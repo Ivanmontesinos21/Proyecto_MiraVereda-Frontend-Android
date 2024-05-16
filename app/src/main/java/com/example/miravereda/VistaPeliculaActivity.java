@@ -31,7 +31,7 @@ public class VistaPeliculaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_pelicula);
 
-        imageView = findViewById(R.id.imageView);
+        imageView = findViewById(R.id.carrito);
         titulo = findViewById(R.id.titulo);
         autor = findViewById(R.id.autor);
         precio = findViewById(R.id.precio);
