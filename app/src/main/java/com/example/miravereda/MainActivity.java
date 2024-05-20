@@ -69,23 +69,23 @@ public class MainActivity extends AppCompatActivity{
         });
 
         createAccount.setOnClickListener(v -> {
-            Intent intent=new Intent(getApplicationContext(), NewUserActivity.class);
+            Intent intent=new Intent(this, NewUserActivity.class);
             intent.putExtra("username",usertext.getText().toString());
             activityResultLauncher.launch(intent);
         });
         forgetPassword.setOnClickListener(v -> {
-            Intent intent=new Intent(getApplicationContext(), UpdateCuentaActivity.class);
+            Intent intent=new Intent(this, UpdateCuentaActivity.class);
             activityResultLauncher.launch(intent);
         });
 
 
-        if (iniciarSesion(usertext.getText().toString(),password.getText().toString())){
+        //if (iniciarSesion(usertext.getText().toString(),password.getText().toString())){
             iniciarSesion.setOnClickListener(v->{
-                Intent intent=new Intent(getApplicationContext(), SecondScreen.class);
+                Intent intent=new Intent(this, SecondScreen.class);
                 activityResultLauncher.launch(intent);
             });
-        }else
-            Toast.makeText(this,"No se puede iniciar Sesion",Toast.LENGTH_LONG).show();
+        //}else
+        //    Toast.makeText(this,"No se puede iniciar Sesion",Toast.LENGTH_LONG).show();
     }
 
     /***

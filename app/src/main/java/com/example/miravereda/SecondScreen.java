@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.miravereda.API.Connector;
+import com.example.miravereda.base.BaseActivity;
 import com.example.miravereda.base.CallInterface;
 import com.example.miravereda.base.MyProgressBar;
 import com.example.miravereda.model.ContenidoAudiovisual;
@@ -26,7 +27,7 @@ import java.util.List;
 
 import kotlin.jvm.internal.PropertyReference0Impl;
 
-public class SecondScreen extends AppCompatActivity implements View.OnClickListener, CallInterface {
+public class SecondScreen extends BaseActivity implements View.OnClickListener, CallInterface {
 
     ActivityResultLauncher<Intent> activityResultLauncher;
     private RecyclerView recyclerView;
@@ -38,8 +39,6 @@ public class SecondScreen extends AppCompatActivity implements View.OnClickListe
     private RecyclerViewAdapterCartelera recyclerViewAdapterCartelera;
 
     private List<ContenidoAudiovisual> contenidosAudiovisuales;
-
-    protected MyProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +64,7 @@ public class SecondScreen extends AppCompatActivity implements View.OnClickListe
             activityResultLauncher.launch(intent);
         });
 
+        executeCall(this);
     }
 
     @Override
@@ -78,7 +78,8 @@ public class SecondScreen extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void doInBackground() {
-        contenidosAudiovisuales = Connector.getConector().getAsList(ContenidoAudiovisual.class, "/pelicula/");
+        contenidosAudiovisuales = Connector.getConector().getAsList(ContenidoAudiovisual.class, "pelicula/");
+        System.out.println(contenidosAudiovisuales.size());
 
     }
 

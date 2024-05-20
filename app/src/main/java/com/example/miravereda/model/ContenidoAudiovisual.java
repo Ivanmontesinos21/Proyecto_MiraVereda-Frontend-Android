@@ -28,4 +28,12 @@ public class ContenidoAudiovisual {
             return Conversor.getConversor().fromJson(json, Capitulo.class);
         return ca;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public double getValoracionMedia() {
+        return valoracionMedia;
+    }
 }

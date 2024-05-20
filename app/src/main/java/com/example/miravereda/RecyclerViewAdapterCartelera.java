@@ -40,16 +40,15 @@ public class RecyclerViewAdapterCartelera extends RecyclerView.Adapter<ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder2 holder, int position) {
-        /*
-        holder.imagen.setImageResource();
-        holder.titulo.setText();
-        holder.estrellas.
-        */
+        ContenidoAudiovisual ca = contenidosAudiovisuales.get(position);
+        //holder.imagen.setImageResource();
+        holder.titulo.setText(ca.getTitulo());
+        holder.estrellas.setRating((float)ca.getValoracionMedia());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return contenidosAudiovisuales.size();
     }
 }
 

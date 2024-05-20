@@ -25,7 +25,9 @@ public class Connector {
 
     public <T> List<T> getAsList(Class<T> clazz, String path){
         String url = Parameters.URL + Parameters.URL_OPTIONS + path;
+        System.out.println(url);
         String jsonResponse = callMethodsObject.get(url);
+        System.out.println(jsonResponse);
         if(jsonResponse != null)
             return conversor.fromJsonList(jsonResponse, clazz);
         return null;
