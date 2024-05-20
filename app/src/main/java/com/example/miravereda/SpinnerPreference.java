@@ -28,13 +28,13 @@ public class SpinnerPreference extends Preference {
 
         String[] languajes=getContext().getResources().getStringArray(R.array.languajes);
 
-        ArrayAdapter<String> adapter=new ArrayAdapter<>(getContext(),R.layout.simple_spinner_item,languajes);
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item,languajes);
 
-        adapter.setDropDownViewResource(androidx.appcompat.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         SharedPreferences sharedPreferences=getSharedPreferences();
-        String selectedLanguaje=SharedPreferences.getString("languaje","es");
+        String selectedLanguaje=sharedPreferences.getString("languaje","es");
 
         int position= Arrays.asList(languajes).indexOf(selectedLanguaje);
         spinner.setSelection(position);

@@ -32,10 +32,11 @@ public class RecyclerViewAdapterCarrito extends RecyclerView.Adapter<MyViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        /*
         holder.imagen.setImageResource();
         holder.tvtitulopelicula.setText();
         holder.tvpreciopelicula.setText();
-
+        */
     }
 
     @Override

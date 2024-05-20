@@ -13,17 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.miravereda.model.ContenidoAudiovisual;
 
+import java.util.List;
+
 public class RecyclerViewAdapterCartelera extends RecyclerView.Adapter<ViewHolder2> {
 
     public Context context;
 
-
+    private List<ContenidoAudiovisual> contenidosAudiovisuales;
 
     public LayoutInflater layoutInflater;
 
-    public RecyclerViewAdapterCartelera(Context context){
+    public RecyclerViewAdapterCartelera(Context context, List<ContenidoAudiovisual> contenidosAudiovisuales){
         super();
         this.context=context;
+        this.contenidosAudiovisuales = contenidosAudiovisuales;
         layoutInflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -37,10 +40,11 @@ public class RecyclerViewAdapterCartelera extends RecyclerView.Adapter<ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder2 holder, int position) {
+        /*
         holder.imagen.setImageResource();
         holder.titulo.setText();
         holder.estrellas.
-
+        */
     }
 
     @Override

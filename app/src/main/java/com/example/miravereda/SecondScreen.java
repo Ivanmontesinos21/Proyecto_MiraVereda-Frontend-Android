@@ -21,6 +21,9 @@ import com.example.miravereda.base.CallInterface;
 import com.example.miravereda.base.MyProgressBar;
 import com.example.miravereda.model.ContenidoAudiovisual;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import kotlin.jvm.internal.PropertyReference0Impl;
 
 public class SecondScreen extends AppCompatActivity implements View.OnClickListener, CallInterface {
@@ -34,7 +37,7 @@ public class SecondScreen extends AppCompatActivity implements View.OnClickListe
 
     private RecyclerViewAdapterCartelera recyclerViewAdapterCartelera;
 
-    private ContenidoAudiovisual contenidoAudiovisual;
+    private List<ContenidoAudiovisual> contenidosAudiovisuales;
 
     protected MyProgressBar progressBar;
 
@@ -54,7 +57,6 @@ public class SecondScreen extends AppCompatActivity implements View.OnClickListe
 
         });
         recyclerView=findViewById(R.id.recyclerCartelera);
-        recyclerViewAdapterCartelera=new RecyclerViewAdapterCartelera(this);
 
         recyclerView.setOnClickListener(this);
         imageButton=findViewById(R.id.ircarrito);
@@ -69,14 +71,14 @@ public class SecondScreen extends AppCompatActivity implements View.OnClickListe
     public void doInUI() {
         hideProgress();
         recyclerView=findViewById(R.id.recyclerCartelera);
-        recyclerViewAdapterCartelera=new RecyclerViewAdapterCartelera(this);
+        recyclerViewAdapterCartelera=new RecyclerViewAdapterCartelera(this, contenidosAudiovisuales);
         recyclerView.setAdapter(recyclerViewAdapterCartelera);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
     public void doInBackground() {
-        contenidoAudiovisual= Connector.getConector().get(ContenidoAudiovisual.class,);
+        contenidosAudiovisuales = Connector.getConector().getAsList(ContenidoAudiovisual.class, "/pelicula/");
 
     }
 

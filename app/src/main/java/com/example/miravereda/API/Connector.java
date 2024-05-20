@@ -40,6 +40,14 @@ public class Connector {
         return null;
     }
 
+    public String getString(String path){
+        String url = Parameters.URL + Parameters.URL_OPTIONS + path;
+        String jsonResponse = callMethodsObject.get(url);
+        if(jsonResponse != null)
+            return jsonResponse;
+        return null;
+    }
+
     public <T> T post(Class<T> clazz, T data, String path){
         String url = Parameters.URL + Parameters.URL_OPTIONS + path;
         String jsonObject = conversor.toJson(data);
