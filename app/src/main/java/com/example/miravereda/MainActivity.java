@@ -1,5 +1,6 @@
 package com.example.miravereda;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -12,11 +13,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.miravereda.API.Connector;
+import com.example.miravereda.base.CallInterface;
+import com.example.miravereda.base.MyProgressBar;
+import com.example.miravereda.model.ContenidoAudiovisual;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private Button iniciarSesion;
 
@@ -31,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputLayout iusertext;
 
     boolean valido;
+
 
 
     @Override
@@ -92,4 +100,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
 
     }
+
+
+
 }

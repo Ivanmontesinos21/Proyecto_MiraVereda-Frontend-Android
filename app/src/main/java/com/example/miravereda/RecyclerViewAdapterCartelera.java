@@ -11,9 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.miravereda.model.ContenidoAudiovisual;
+
 public class RecyclerViewAdapterCartelera extends RecyclerView.Adapter<ViewHolder2> {
 
     public Context context;
+
+
 
     public LayoutInflater layoutInflater;
 

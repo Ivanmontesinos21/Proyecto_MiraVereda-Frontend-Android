@@ -16,14 +16,27 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class SecondScreen extends AppCompatActivity implements View.OnClickListener {
+import com.example.miravereda.API.Connector;
+import com.example.miravereda.base.CallInterface;
+import com.example.miravereda.base.MyProgressBar;
+import com.example.miravereda.model.ContenidoAudiovisual;
+
+import kotlin.jvm.internal.PropertyReference0Impl;
+
+public class SecondScreen extends AppCompatActivity implements View.OnClickListener, CallInterface {
 
     ActivityResultLauncher<Intent> activityResultLauncher;
     private RecyclerView recyclerView;
 
     private ImageButton imageButton;
 
+
+
     private RecyclerViewAdapterCartelera recyclerViewAdapterCartelera;
+
+    private ContenidoAudiovisual contenidoAudiovisual;
+
+    protected MyProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +55,7 @@ public class SecondScreen extends AppCompatActivity implements View.OnClickListe
         });
         recyclerView=findViewById(R.id.recyclerCartelera);
         recyclerViewAdapterCartelera=new RecyclerViewAdapterCartelera(this);
-        recyclerView.setAdapter(recyclerViewAdapterCartelera);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         recyclerView.setOnClickListener(this);
         imageButton=findViewById(R.id.ircarrito);
         imageButton.setOnClickListener(v->{
@@ -51,6 +63,29 @@ public class SecondScreen extends AppCompatActivity implements View.OnClickListe
             activityResultLauncher.launch(intent);
         });
 
+    }
+
+    @Override
+    public void doInUI() {
+        hideProgress();
+        recyclerView=findViewById(R.id.recyclerCartelera);
+        recyclerViewAdapterCartelera=new RecyclerViewAdapterCartelera(this);
+        recyclerView.setAdapter(recyclerViewAdapterCartelera);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void doInBackground() {
+        contenidoAudiovisual= Connector.getConector().get(ContenidoAudiovisual.class,);
+
+    }
+
+    public void showProgress(){
+        progressBar.show();
+    }
+
+    public void hideProgress(){
+        progressBar.hide();
     }
 
     /***
