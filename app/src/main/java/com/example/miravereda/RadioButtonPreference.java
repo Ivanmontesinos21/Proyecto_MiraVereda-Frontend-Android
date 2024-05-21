@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RadioButton;
 
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 public class RadioButtonPreference extends Preference {
@@ -14,7 +15,7 @@ public class RadioButtonPreference extends Preference {
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder) {
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
 
@@ -24,6 +25,7 @@ public class RadioButtonPreference extends Preference {
 
         // Obtener el tema actual guardado en las SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences();
+        assert sharedPreferences != null;
         String selectedTheme = sharedPreferences.getString("theme", "system");
 
         lightRadioButton.setChecked("light".equals(selectedTheme));
@@ -31,26 +33,9 @@ public class RadioButtonPreference extends Preference {
         systemRadioButton.setChecked("system".equals(selectedTheme));
 
 
-        lightRadioButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveTheme("light");
-            }
-
-
-        });
-        darkRadioButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveTheme("dark");
-            }
-        });
-        systemRadioButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveTheme("system");
-            }
-        });
+        lightRadioButton.setOnClickListener(v -> saveTheme("light"));
+        darkRadioButton.setOnClickListener(v -> saveTheme("dark"));
+        systemRadioButton.setOnClickListener(v -> saveTheme("system"));
     }
         private void saveTheme(String theme) {
             SharedPreferences.Editor editor=

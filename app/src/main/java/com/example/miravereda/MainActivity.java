@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -39,6 +40,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
     private TextInputEditText password;
     private TextInputLayout iusertext;
     boolean valido;
+    private ImageButton ibpreferencias;
 
 
     @Override
@@ -57,6 +59,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
         createAccount=findViewById(R.id.createAccount);
         usertext=findViewById(R.id.username);
         password=findViewById(R.id.password);
+        ibpreferencias=findViewById(R.id.ibpreferencias);
 
 
         ActivityResultLauncher<Intent> activityResultLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
@@ -81,6 +84,10 @@ public class MainActivity extends BaseActivity implements CallInterface {
 
         iniciarSesion.setOnClickListener(v->{
             executeCall(this);
+        });
+        ibpreferencias.setOnClickListener(v -> {
+            Intent intent=new Intent(this, Preference.class);
+            activityResultLauncher.launch(intent);
         });
     }
 
