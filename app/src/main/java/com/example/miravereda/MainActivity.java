@@ -1,7 +1,7 @@
 package com.example.miravereda;
 
-import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,31 +14,31 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.miravereda.API.Connector;
+import com.example.miravereda.API.Conversor;
+import com.example.miravereda.base.BaseActivity;
 import com.example.miravereda.base.CallInterface;
-import com.example.miravereda.base.MyProgressBar;
 import com.example.miravereda.model.ContenidoAudiovisual;
+import com.example.miravereda.model.Credenciales;
+import com.example.miravereda.model.Usuario;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class MainActivity extends AppCompatActivity{
+import java.util.List;
+
+public class MainActivity extends BaseActivity implements CallInterface {
 
     private Button iniciarSesion;
 
     private Button forgetPassword;
 
     private Button createAccount;
-
+    private Usuario usuario;
     private TextInputEditText usertext;
-
     private TextInputEditText password;
-
     private TextInputLayout iusertext;
-
     boolean valido;
-
 
 
     @Override
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity{
         createAccount=findViewById(R.id.createAccount);
         usertext=findViewById(R.id.username);
         password=findViewById(R.id.password);
+
 
         ActivityResultLauncher<Intent> activityResultLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
            if (result.getResultCode()==RESULT_CANCELED)
@@ -78,29 +79,30 @@ public class MainActivity extends AppCompatActivity{
             activityResultLauncher.launch(intent);
         });
 
-
-        //if (iniciarSesion(usertext.getText().toString(),password.getText().toString())){
-            iniciarSesion.setOnClickListener(v->{
-                Intent intent=new Intent(this, SecondScreen.class);
-                activityResultLauncher.launch(intent);
-            });
-        //}else
-        //    Toast.makeText(this,"No se puede iniciar Sesion",Toast.LENGTH_LONG).show();
+        iniciarSesion.setOnClickListener(v->{
+            executeCall(this);
+        });
     }
 
-    /***
-     * Metodo que devolvera un booleano que comrpobara si se ha podido iniciar sesion
-     * @param username sera el username recogido en el campo de username
-     * @param contraseña la contraseña sera la recogida en el campo contraseña
-     * @return devuelve un booleano para comprobar el inicio de sesion
-     */
-
-    public static boolean iniciarSesion(String username,String contraseña){
-
-        return false;
-
+    @Override
+    public void doInUI() {
+        hideProgress();
+        SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
+        SharedPreferences.Editor editor= prefs.edit();
+        Conversor conversor = Conversor.getConversor();
+        editor.putString("usuario", conversor.toJson(usuario));
+        editor.commit();
+        Intent intent=new Intent(this, SecondScreen.class);
+        startActivity(intent);
     }
 
-
+    @Override
+    public void doInBackground() {
+        Credenciales credenciales = new Credenciales(
+                usertext.getText().toString(),
+                password.getText().toString()
+        );
+        usuario = Connector.getConector().post(Usuario.class, credenciales, "login/");
+    }
 
 }

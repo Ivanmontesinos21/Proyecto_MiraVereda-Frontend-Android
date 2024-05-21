@@ -1,7 +1,5 @@
 package com.example.miravereda.base;
 
-import static com.squareup.picasso.Picasso.*;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -15,8 +13,14 @@ import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
 public class ImageDownloader {
+
     private static RequestQueue colaPeticiones ;
     private final static String TAG = ImageDownloader.class.getName();
+
+    public static void downloadImage(String url, ImageView imageView){
+        Picasso.get().load(url).into(imageView);
+    }
+
     public static void downloadImage(Context context, String url, ImageView imageView, int defaultDrawable){
         ImageRequest peticion = new ImageRequest(
                 url,

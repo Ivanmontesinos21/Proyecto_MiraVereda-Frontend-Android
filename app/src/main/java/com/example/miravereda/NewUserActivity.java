@@ -1,8 +1,9 @@
 package com.example.miravereda;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -11,25 +12,35 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.miravereda.API.Connector;
+import com.example.miravereda.base.BaseActivity;
+import com.example.miravereda.base.CallInterface;
+import com.example.miravereda.model.NewUsuario;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 
-public class NewUserActivity extends AppCompatActivity {
+public class NewUserActivity extends BaseActivity implements CallInterface {
+
+    private Connector connector;
 
 
     private Button crearusuario;
 
-    private TextInputEditText nombre;
-    private TextInputEditText apellidos;
+    private DatePicker datePicker;
 
-    private TextInputEditText mail;
+    private TextInputEditText Enombre;
+    private TextInputEditText Eapellidos;
 
-    private TextInputEditText username;
+    private TextInputEditText Email;
 
-    private CalendarView calendarView;
+    private TextInputEditText Eusername;
+    NewUsuario usuario;
 
-    private TextInputEditText password;
+
+    private TextInputEditText Epassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,24 +53,61 @@ public class NewUserActivity extends AppCompatActivity {
             return insets;
         });
         crearusuario = findViewById(R.id.createUser);
-        nombre = findViewById(R.id.nombre);
-        apellidos = findViewById(R.id.apellidos);
-        mail = findViewById(R.id.mail);
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
-        //calendarView=findViewById(R.id.calendar);
+        Enombre = findViewById(R.id.nombrenew);
+        Eapellidos = findViewById(R.id.apellidosnew);
+        datePicker=findViewById(R.id.date);
+        Email = findViewById(R.id.mailnew);
+        Epassword = findViewById(R.id.passwordnew);
+
+
         crearusuario.setOnClickListener(v -> {
-            if (crearusuario.toString().isEmpty() || nombre.toString().isEmpty() || apellidos.toString().isEmpty() || mail.toString().isEmpty() ||
-                    username.toString().isEmpty() || password.toString().isEmpty()) {
+            if (crearusuario.toString().isEmpty() || Enombre.toString().isEmpty() || Eapellidos.toString().isEmpty() || Email.toString().isEmpty() ||
+                      Epassword.toString().isEmpty()) {
                 Toast.makeText(this, "Porfavor rellena todos los campos son requeridos", Toast.LENGTH_LONG).show();
             } else {
-                //Aqui hay que añadir la cuenta
+                executeCall(this);
+
 
 
             }
 
         });
 
+    }
+
+    @Override
+    public void doInBackground() {
+        registrar();
+
+    }
+
+    @Override
+    public void doInUI() {
+        Toast.makeText(this,"Usuario creado con el email: " + Email.getText().toString(),Toast.LENGTH_LONG).show();
+        Intent intent=new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+    }
+
+    private long getDate() {
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year =  datePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        return calendar.getTime().getTime() / 1000;
+    }
+
+    private void registrar() {
+        String nombre=Enombre.getText().toString();
+        String apellidos=Eapellidos.getText().toString();
+        String email=Email.getText().toString();
+        long date1=getDate();
+        String password=Epassword.getText().toString();
+        NewUsuario u=new NewUsuario(nombre,apellidos,email,date1,password);
+        usuario=Connector.getConector().post(NewUsuario.class,u,"/usuario");
 
     }
 }

@@ -1,6 +1,7 @@
 package com.example.miravereda;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,13 +14,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.miravereda.API.Connector;
+import com.example.miravereda.API.Conversor;
+import com.example.miravereda.base.BaseActivity;
+import com.example.miravereda.base.CallInterface;
+import com.example.miravereda.model.Credenciales;
+import com.example.miravereda.model.NewUsuario;
+import com.example.miravereda.model.Usuario;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class UpdateCuentaActivity extends AppCompatActivity {
+public class UpdateCuentaActivity extends BaseActivity implements CallInterface {
 
     private Button update;
+    SharedPreferences preferences;
 
-    private TextInputEditText newusername;
+    private TextInputEditText mail;
 
     private TextInputEditText newpassword;
 
@@ -34,8 +43,18 @@ public class UpdateCuentaActivity extends AppCompatActivity {
             return insets;
         });
         update=findViewById(R.id.updatebutton);
-        newusername=findViewById(R.id.newUsername);
+        mail=findViewById(R.id.recuperationmail);
         newpassword=findViewById(R.id.newPassword);
+
+        update.setOnClickListener(v->{
+            if (newpassword.toString().isEmpty()) {
+                Toast.makeText(this, "Porfavor ponga una contraseña", Toast.LENGTH_LONG);
+            }else{
+                actualizarCuenta();
+
+
+            }
+        });
 
         ActivityResultLauncher<Intent> activityResultLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
             if (result.getResultCode()==RESULT_CANCELED)
@@ -45,12 +64,28 @@ public class UpdateCuentaActivity extends AppCompatActivity {
             }
         });
         update.setOnClickListener(v->{
-            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-            activityResultLauncher.launch(intent);
+            executeCall(this);
+
         });
 
-
-
+    }
+    @Override
+    public void doInBackground() {
+        actualizarCuenta();
 
     }
+
+    @Override
+    public void doInUI() {
+        Toast.makeText(this,"Usuario Actualizado con exito",Toast.LENGTH_LONG).show();
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void actualizarCuenta() {
+        Credenciales credenciales=new Credenciales(mail.getText().toString(),newpassword.getText().toString());
+        Connector.getConector().put(credenciales,"resetpass/");
+    }
+
+
 }

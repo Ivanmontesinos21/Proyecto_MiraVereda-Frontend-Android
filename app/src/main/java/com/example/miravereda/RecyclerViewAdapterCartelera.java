@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.miravereda.base.ImageDownloader;
+import com.example.miravereda.base.Parameters;
 import com.example.miravereda.model.ContenidoAudiovisual;
 
 import java.util.List;
@@ -41,7 +43,9 @@ public class RecyclerViewAdapterCartelera extends RecyclerView.Adapter<ViewHolde
     @Override
     public void onBindViewHolder(@NonNull ViewHolder2 holder, int position) {
         ContenidoAudiovisual ca = contenidosAudiovisuales.get(position);
-        //holder.imagen.setImageResource();
+        String imagenUrl = ca.getImagenUrl();
+        if(imagenUrl != null)
+            ImageDownloader.downloadImage(imagenUrl, holder.imagen);
         holder.titulo.setText(ca.getTitulo());
         holder.estrellas.setRating((float)ca.getValoracionMedia());
     }

@@ -56,7 +56,6 @@ public class SecondScreen extends BaseActivity implements View.OnClickListener, 
 
         });
         recyclerView=findViewById(R.id.recyclerCartelera);
-
         recyclerView.setOnClickListener(this);
         imageButton=findViewById(R.id.ircarrito);
         imageButton.setOnClickListener(v->{
@@ -79,8 +78,6 @@ public class SecondScreen extends BaseActivity implements View.OnClickListener, 
     @Override
     public void doInBackground() {
         contenidosAudiovisuales = Connector.getConector().getAsList(ContenidoAudiovisual.class, "pelicula/");
-        System.out.println(contenidosAudiovisuales.size());
-
     }
 
     public void showProgress(){

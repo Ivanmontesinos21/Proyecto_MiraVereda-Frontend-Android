@@ -50,7 +50,7 @@ public class Connector {
         return null;
     }
 
-    public <T> T post(Class<T> clazz, T data, String path){
+    public <T, T2> T post(Class<T> clazz, T2 data, String path){
         String url = Parameters.URL + Parameters.URL_OPTIONS + path;
         String jsonObject = conversor.toJson(data);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonObject);
@@ -60,7 +60,7 @@ public class Connector {
         return null;
     }
 
-    public <T> T put(Class<T> clazz, T data, String path){
+    public <T,T2> T put(Class<T> clazz, T2 data, String path){
         String url = Parameters.URL + Parameters.URL_OPTIONS + path;
         String jsonObject = conversor.toJson(data);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonObject);
@@ -68,6 +68,13 @@ public class Connector {
         if(jsonResponse != null)
             return conversor.fromJson(jsonResponse, clazz);
         return null;
+    }
+
+    public <T> void put(T data, String path){
+        String url = Parameters.URL + Parameters.URL_OPTIONS + path;
+        String jsonObject = conversor.toJson(data);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonObject);
+        callMethodsObject.putWithoutReturn(url, body);
     }
 
     public <T> T delete(Class<T> clazz, String path){

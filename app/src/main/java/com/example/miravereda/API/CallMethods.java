@@ -53,6 +53,15 @@ public class CallMethods <T>{
         return null;
     }
 
+    public void putWithoutReturn(String url,RequestBody data){
+        Call<ResponseBody> call=service.putCall(url,data);
+        try {
+            call.execute();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public String delete(String url){
         Call<ResponseBody> call=service.deleteCall(url);
         try {

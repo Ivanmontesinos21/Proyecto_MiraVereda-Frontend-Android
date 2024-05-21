@@ -15,6 +15,7 @@ public class ContenidoAudiovisual {
     private String nombreDirector;
     private double valoracionMedia;
     private int idTarifa;
+    private String imagenUrl;
     private int precio;
     private int precioConTarifa;
     private String versionIdioma;
@@ -35,5 +36,9 @@ public class ContenidoAudiovisual {
 
     public double getValoracionMedia() {
         return valoracionMedia;
+    }
+
+    public String getImagenUrl() {
+        return imagenUrl;
     }
 }
