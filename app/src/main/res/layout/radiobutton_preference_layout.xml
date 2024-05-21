@@ -6,20 +6,20 @@
 
     <RadioButton
         android:id="@+id/radio_light"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Claro"/>
+        android:text="Claro" />
 
     <RadioButton
         android:id="@+id/radio_dark"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Oscuro"/>
+        android:text="Oscuro" />
 
     <RadioButton
         android:id="@+id/radio_system"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sistema"/>
+        android:text="Sistema" />
 
 </LinearLayout>
