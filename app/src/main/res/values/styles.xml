@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Definir atributos comunes -->
+    </style>
+    <style name="Theme.App.Light" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Definir atributos específicos del tema claro -->
+    </style>
+    <style name="Theme.App.Dark" parent="Theme.MaterialComponents">
+        <!-- Definir atributos específicos del tema oscuro -->
+    </style>
+    <style name="Theme.App.System" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Definir atributos específicos del tema del sistema -->
+    </style>
+</resources>

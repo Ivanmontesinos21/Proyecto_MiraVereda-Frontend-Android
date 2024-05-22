@@ -6,7 +6,7 @@
         <item>system</item>
     </string-array>
     <string-array name="languajes">
-        <item>es</item>
-        <item>en</item>
+        <item>español</item>
+        <item>Ingles</item>
     </string-array>
 </resources>

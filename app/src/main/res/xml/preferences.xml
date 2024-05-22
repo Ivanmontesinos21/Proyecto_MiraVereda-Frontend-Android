@@ -16,25 +16,13 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Preferencias de aplicación">
-        <SpinnerPreference
+        <com.yourpackage.SpinnerPreference
             android:key="language"
             android:title="Idioma"
-            android:summary="Selecciona el idioma de la aplicación"
-            android:dialogTitle="Selecciona el idioma de la aplicación"/>
-        <Preference
-            android:key="theme_title"
-            android:title="Tema de la aplicación" />
-        <RadioButtonPreference
-            android:key="theme_light"
-            android:title="Claro"
-            android:summary="Selecciona el tema claro de la aplicación"/>
-        <RadioButtonPreference
-            android:key="theme_dark"
-            android:title="Oscuro"
-            android:summary="Selecciona el tema oscuro de la aplicación"/>
-        <RadioButtonPreference
-            android:key="theme_system"
-            android:title="Sistema"
-            android:summary="Utiliza el tema del sistema"/>
+            android:summary="Selecciona el idioma de la aplicación"/>
+        <com.yourpackage.RadioButtonPreference
+            android:key="theme"
+            android:title="Tema de la aplicación"
+            android:summary="Selecciona el tema de la aplicación (Claro, Oscuro, Sistema)"/>
     </PreferenceCategory>
 </PreferenceScreen>
