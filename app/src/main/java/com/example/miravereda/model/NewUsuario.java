@@ -8,31 +8,31 @@ public class NewUsuario {
     private String nombre;
     private String apellidos;
     private String email;
-    private long fechanacimiento;
-    private String password;
+    private long fechaNacimiento;
+    private String contrasenya;
     private String domicilio;
-    private String codigopostal;
+    private String codigoPostal;
 
     public NewUsuario(int id, String nombre, String apellidos, String email, long fechanacimiento, String password, String domicilio, String codigopostal) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
-        this.fechanacimiento = fechanacimiento;
-        this.password = password;
+        this.fechaNacimiento = fechanacimiento;
+        this.contrasenya = password;
         this.domicilio = domicilio;
-        this.codigopostal = codigopostal;
+        this.codigoPostal = codigopostal;
     }
 
     public NewUsuario(String nombre, String apellidos, String email, long fechanacimiento, String password) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
-        this.fechanacimiento = fechanacimiento;
-        this.password = password;
+        this.fechaNacimiento = fechanacimiento;
+        this.contrasenya = password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.contrasenya = password;
     }
 }

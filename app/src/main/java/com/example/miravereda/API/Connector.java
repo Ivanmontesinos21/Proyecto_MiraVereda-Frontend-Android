@@ -53,6 +53,7 @@ public class Connector {
     public <T, T2> T post(Class<T> clazz, T2 data, String path){
         String url = Parameters.URL + Parameters.URL_OPTIONS + path;
         String jsonObject = conversor.toJson(data);
+        System.out.println(jsonObject);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonObject);
         String jsonResponse = callMethodsObject.post(url, body);
         if(jsonResponse != null)

@@ -1,16 +1,21 @@
 package com.example.miravereda;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.miravereda.base.BaseActivity;
 import com.example.miravereda.base.ImageDownloader;
 import com.example.miravereda.base.Parameters;
 import com.example.miravereda.model.ContenidoAudiovisual;
@@ -21,7 +26,10 @@ public class RecyclerViewAdapterCartelera extends RecyclerView.Adapter<ViewHolde
 
     public Context context;
 
+
+
     private List<ContenidoAudiovisual> contenidosAudiovisuales;
+
 
     public LayoutInflater layoutInflater;
 
@@ -48,6 +56,13 @@ public class RecyclerViewAdapterCartelera extends RecyclerView.Adapter<ViewHolde
             ImageDownloader.downloadImage(imagenUrl, holder.imagen);
         holder.titulo.setText(ca.getTitulo());
         holder.estrellas.setRating((float)ca.getValoracionMedia());
+        holder.itemView.setOnClickListener(v->{
+            Intent intent=new Intent(holder.itemView.getContext(), VistaPeliculaActivity.class);
+            intent.putExtra("ca",ca);
+            System.out.println(" " + ca);
+            holder.itemView.getContext().startActivity(intent);
+
+        });
     }
 
     @Override

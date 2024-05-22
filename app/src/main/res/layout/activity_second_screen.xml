@@ -29,6 +29,7 @@
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerCartelera"
         app:layout_constraintEnd_toEndOf="@+id/recyclerCartelera"
-        app:srcCompat="@mipmap/ic_carritoflotante" />
+        app:srcCompat="@mipmap/ic_carritoflotante"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

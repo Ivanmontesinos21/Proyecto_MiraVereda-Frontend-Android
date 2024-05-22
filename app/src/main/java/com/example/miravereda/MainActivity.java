@@ -3,6 +3,7 @@ package com.example.miravereda;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -94,13 +95,20 @@ public class MainActivity extends BaseActivity implements CallInterface {
     @Override
     public void doInUI() {
         hideProgress();
-        SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
-        SharedPreferences.Editor editor= prefs.edit();
-        Conversor conversor = Conversor.getConversor();
-        editor.putString("usuario", conversor.toJson(usuario));
-        editor.commit();
-        Intent intent=new Intent(this, SecondScreen.class);
-        startActivity(intent);
+        if (usuario != null) {
+            SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            Conversor conversor = Conversor.getConversor();
+            editor.putString("usuario", conversor.toJson(usuario));
+            editor.putString("mail",usertext.getText().toString());
+            editor.putString("contrasenya", password.getText().toString());
+            editor.apply();
+            editor.commit();
+            Intent intent = new Intent(this, SecondScreen.class);
+            startActivity(intent);
+        } else{
+            Toast.makeText(this,"El usuario con el mail: " + usertext.getText().toString() +  " no existe",Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -109,7 +117,16 @@ public class MainActivity extends BaseActivity implements CallInterface {
                 usertext.getText().toString(),
                 password.getText().toString()
         );
-        usuario = Connector.getConector().post(Usuario.class, credenciales, "login/");
+        try {
+
+            usuario = Connector.getConector().post(Usuario.class, credenciales, "login/");
+
+        }catch (NullPointerException pointerException){
+            Log.d(MainActivity.class.getSimpleName(),"El email o la contraseña no son validos");
+
+
+        }
+
     }
 
 }

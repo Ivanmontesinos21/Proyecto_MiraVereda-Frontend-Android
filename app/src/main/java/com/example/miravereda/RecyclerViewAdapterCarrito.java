@@ -11,15 +11,22 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.miravereda.base.ImageDownloader;
+import com.example.miravereda.model.ContenidoAudiovisual;
+
+import java.util.List;
+
 public class RecyclerViewAdapterCarrito extends RecyclerView.Adapter<MyViewHolder> {
 
     private Context context;
     private LayoutInflater layoutInflater;
+    List<ContenidoAudiovisual> contenidoAudiovisuales;
 
 
-    public RecyclerViewAdapterCarrito(Context context){
+    public RecyclerViewAdapterCarrito(Context context, List<ContenidoAudiovisual> contenidoAudiovisuals){
         super();
         this.context=context;
+        this.contenidoAudiovisuales=contenidoAudiovisuals;
         layoutInflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -32,11 +39,11 @@ public class RecyclerViewAdapterCarrito extends RecyclerView.Adapter<MyViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        /*
-        holder.imagen.setImageResource();
-        holder.tvtitulopelicula.setText();
-        holder.tvpreciopelicula.setText();
-        */
+        ContenidoAudiovisual c=contenidoAudiovisuales.get(position);
+        ImageDownloader.downloadImage(c.getImagenUrl(), holder.imagen);
+        holder.tvtitulopelicula.setText(c.getTitulo());
+        //holder.tvpreciopelicula.setText();
+
     }
 
     @Override

@@ -2,9 +2,10 @@ package com.example.miravereda.model;
 
 import com.example.miravereda.API.Conversor;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ContenidoAudiovisual {
+public class ContenidoAudiovisual implements Serializable {
     private int id;
     private String tipo;
     private String titulo;
@@ -40,5 +41,74 @@ public class ContenidoAudiovisual {
 
     public String getImagenUrl() {
         return imagenUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public long getFechaEstreno() {
+        return fechaEstreno;
+    }
+
+    public String getNombreDirector() {
+        return nombreDirector;
+    }
+
+    public int getIdTarifa() {
+        return idTarifa;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public int getPrecioConTarifa() {
+        return precioConTarifa;
+    }
+
+    public String getVersionIdioma() {
+        return versionIdioma;
+    }
+
+    public List<Actor> getActores() {
+        return actores;
+    }
+
+    @Override
+    public String toString() {
+        return "ContenidoAudiovisual{" +
+                "id=" + id +
+                ", tipo='" + tipo + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", genero='" + genero + '\'' +
+                ", duracion=" + duracion +
+                ", fechaEstreno=" + fechaEstreno +
+                ", nombreDirector='" + nombreDirector + '\'' +
+                ", valoracionMedia=" + valoracionMedia +
+                ", idTarifa=" + idTarifa +
+                ", imagenUrl='" + imagenUrl + '\'' +
+                ", precio=" + precio +
+                ", precioConTarifa=" + precioConTarifa +
+                ", versionIdioma='" + versionIdioma + '\'' +
+                ", actores=" + actores +
+                '}';
     }
 }

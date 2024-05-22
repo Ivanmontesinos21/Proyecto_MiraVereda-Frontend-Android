@@ -27,14 +27,12 @@ import java.util.List;
 
 import kotlin.jvm.internal.PropertyReference0Impl;
 
-public class SecondScreen extends BaseActivity implements View.OnClickListener, CallInterface {
+public class SecondScreen extends BaseActivity implements CallInterface {
 
-    ActivityResultLauncher<Intent> activityResultLauncher;
+
     private RecyclerView recyclerView;
 
     private ImageButton imageButton;
-
-
 
     private RecyclerViewAdapterCartelera recyclerViewAdapterCartelera;
 
@@ -50,16 +48,14 @@ public class SecondScreen extends BaseActivity implements View.OnClickListener, 
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        activityResultLauncher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
-            if (result.getResultCode()==RESULT_CANCELED)
-                Toast.makeText(this,"No se ha podido entar a los detalles de las peliculas",Toast.LENGTH_LONG).show();
+        ActivityResultLauncher<Intent> activityResultLauncher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
 
         });
+
         recyclerView=findViewById(R.id.recyclerCartelera);
-        recyclerView.setOnClickListener(this);
         imageButton=findViewById(R.id.ircarrito);
         imageButton.setOnClickListener(v->{
-            Intent intent=new Intent(getApplicationContext(), CarritoActivity.class);
+            Intent intent=new Intent(this, CarritoActivity.class);
             activityResultLauncher.launch(intent);
         });
 
@@ -88,15 +84,4 @@ public class SecondScreen extends BaseActivity implements View.OnClickListener, 
         progressBar.hide();
     }
 
-    /***
-     * Metodo que te enviara a la actividad de ver las peliculas en mas detalle
-     * @param v La vista que se ha elegido.
-     */
-
-    @Override
-    public void onClick(View v) {
-        Intent intent=new Intent(getApplicationContext(), VistaPeliculaActivity.class);
-        activityResultLauncher.launch(intent);
-
-    }
 }

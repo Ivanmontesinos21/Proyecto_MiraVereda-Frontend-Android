@@ -58,19 +58,13 @@ public class NewUserActivity extends BaseActivity implements CallInterface {
         datePicker=findViewById(R.id.date);
         Email = findViewById(R.id.mailnew);
         Epassword = findViewById(R.id.passwordnew);
-
-
         crearusuario.setOnClickListener(v -> {
             if (crearusuario.toString().isEmpty() || Enombre.toString().isEmpty() || Eapellidos.toString().isEmpty() || Email.toString().isEmpty() ||
                       Epassword.toString().isEmpty()) {
                 Toast.makeText(this, "Porfavor rellena todos los campos son requeridos", Toast.LENGTH_LONG).show();
             } else {
                 executeCall(this);
-
-
-
             }
-
         });
 
     }
@@ -107,7 +101,7 @@ public class NewUserActivity extends BaseActivity implements CallInterface {
         long date1=getDate();
         String password=Epassword.getText().toString();
         NewUsuario u=new NewUsuario(nombre,apellidos,email,date1,password);
-        usuario=Connector.getConector().post(NewUsuario.class,u,"/usuario");
+        usuario=Connector.getConector().post(NewUsuario.class,u,"usuario/");
 
     }
 }

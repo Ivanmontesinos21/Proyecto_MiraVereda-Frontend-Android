@@ -3,25 +3,35 @@ package com.example.miravereda;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
-
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.miravereda.API.Connector;
+import com.example.miravereda.base.BaseActivity;
+import com.example.miravereda.base.CallInterface;
+import com.example.miravereda.base.ImageDownloader;
+import com.example.miravereda.model.AnyadirAlCarro;
+import com.example.miravereda.model.ContenidoAudiovisual;
+import com.example.miravereda.model.Credenciales;
 
 
-public class VistaPeliculaActivity extends AppCompatActivity {
+public class VistaPeliculaActivity extends BaseActivity implements CallInterface {
     private ImageView imageView;
     private TextView titulo;
     private TextView autor;
     private TextView precio;
     private TextView nota;
+    private ContenidoAudiovisual contenidoAudiovisual;
     private TextView notaMedia;
     private RatingBar ratingBar;
     private Button btnComprar;
@@ -31,7 +41,9 @@ public class VistaPeliculaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_pelicula);
 
-        imageView = findViewById(R.id.carrito);
+
+        contenidoAudiovisual=(ContenidoAudiovisual) getIntent().getExtras().getSerializable("ca");
+        imageView = findViewById(R.id.imagendetail);
         titulo = findViewById(R.id.titulo);
         autor = findViewById(R.id.autor);
         precio = findViewById(R.id.precio);
@@ -39,22 +51,13 @@ public class VistaPeliculaActivity extends AppCompatActivity {
         notaMedia = findViewById(R.id.notaMedia);
         ratingBar = findViewById(R.id.ratingBar);
         btnComprar = findViewById(R.id.btnComprar);
-
-        Intent intent = getIntent();
-        int imageResId = intent.getIntExtra("imagen", 0);
-        String title = intent.getStringExtra("titulo");
-        String author = intent.getStringExtra("autor");
-        double price = intent.getDoubleExtra("precio", 0);
-        float rating = intent.getFloatExtra("nota", 0);
-        float averageRating = intent.getFloatExtra("notaMedia", 0);
-
-        imageView.setImageResource(imageResId);
-        titulo.setText(title);
-        autor.setText(author);
-        precio.setText("Precio: " + price);
-        nota.setText("Nota: " + rating);
-        notaMedia.setText("Nota Media: " + averageRating);
-
+        ImageDownloader.downloadImage(contenidoAudiovisual.getImagenUrl(),imageView);
+        titulo.setText(contenidoAudiovisual.getTitulo());
+        autor.setText(contenidoAudiovisual.getNombreDirector());
+        precio.setText(Double.toString((double)contenidoAudiovisual.getPrecio() / 100.0));
+        notaMedia.setText(Double.toString(contenidoAudiovisual.getValoracionMedia() / 100.0));
+        ratingBar.setRating((float) contenidoAudiovisual.getValoracionMedia());
+        float averageRating =0;
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float newRating, boolean fromUser) {
@@ -64,13 +67,28 @@ public class VistaPeliculaActivity extends AppCompatActivity {
                 }
             }
         });
-
-        btnComprar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Aquí se añadiría la película al carrito
-                // Por ejemplo, guardar en SharedPreferences, base de datos o una lista estática
-            }
+        btnComprar.setOnClickListener(v -> {
+            executeCall(this);
         });
+
+    }
+
+    @Override
+    public void doInBackground() {
+        SharedPreferences preferences=getSharedPreferences("usuario",MODE_PRIVATE);
+        String mail=preferences.getString("mail",null);
+        String contrasenya=preferences.getString("contrasenya",null);
+        Credenciales credenciales=new Credenciales(mail,contrasenya);
+        AnyadirAlCarro carro=new AnyadirAlCarro(credenciales,contenidoAudiovisual.getId());
+        Connector.getConector().post(AnyadirAlCarro.class,carro,"carrito/");
+
+
+    }
+
+    @Override
+    public void doInUI() {
+        Intent intent=new Intent(getApplicationContext(), SecondScreen.class);
+        startActivity(intent);
+        Toast.makeText(this,"La pelicula  ha sido reservada",Toast.LENGTH_LONG);
     }
 }
