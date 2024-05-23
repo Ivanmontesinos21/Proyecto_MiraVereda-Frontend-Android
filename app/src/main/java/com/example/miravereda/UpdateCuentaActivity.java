@@ -32,6 +32,13 @@ public class UpdateCuentaActivity extends BaseActivity implements CallInterface 
 
     private TextInputEditText newpassword;
 
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +52,9 @@ public class UpdateCuentaActivity extends BaseActivity implements CallInterface 
         update=findViewById(R.id.updatebutton);
         mail=findViewById(R.id.recuperationmail);
         newpassword=findViewById(R.id.newPassword);
+        /**
+         * este onclick lo que hace es para actualizar la contraseña
+         */
 
         update.setOnClickListener(v->{
             if (newpassword.toString().isEmpty()) {
@@ -55,6 +65,9 @@ public class UpdateCuentaActivity extends BaseActivity implements CallInterface 
 
             }
         });
+        /**
+         * Lo que hace el devolver el resultado del intent
+         */
 
         ActivityResultLauncher<Intent> activityResultLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
             if (result.getResultCode()==RESULT_CANCELED)
@@ -82,6 +95,9 @@ public class UpdateCuentaActivity extends BaseActivity implements CallInterface 
         startActivity(intent);
     }
 
+    /**
+     * Actualiza las crecendiales del usuarios y se las manda actualizadas al connector
+     */
     private void actualizarCuenta() {
         Credenciales credenciales=new Credenciales(mail.getText().toString(),newpassword.getText().toString());
         Connector.getConector().put(credenciales,"resetpass/");

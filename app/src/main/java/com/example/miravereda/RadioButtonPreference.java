@@ -18,12 +18,18 @@ public class RadioButtonPreference extends Preference {
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
+        /**
+         *  Inicializamos los botones
+        */
 
         final RadioButton lightRadioButton = (RadioButton) holder.findViewById(R.id.radio_light);
         final RadioButton darkRadioButton = (RadioButton) holder.findViewById(R.id.radio_dark);
         final RadioButton systemRadioButton = (RadioButton) holder.findViewById(R.id.radio_system);
 
-        // Obtener el tema actual guardado en las SharedPreferences
+        /**
+         * Obtener el tema actual guardado en las SharedPreferences
+         */
+//
         SharedPreferences sharedPreferences = getSharedPreferences();
         assert sharedPreferences != null;
         String selectedTheme = sharedPreferences.getString("theme", "system");
@@ -37,6 +43,12 @@ public class RadioButtonPreference extends Preference {
         darkRadioButton.setOnClickListener(v -> saveTheme("dark"));
         systemRadioButton.setOnClickListener(v -> saveTheme("system"));
     }
+
+    /**
+     *
+     * @param theme es el parametro que le paso para guardar el tema.
+     *
+     */
         private void saveTheme(String theme) {
             SharedPreferences.Editor editor=
                     getSharedPreferences().edit().putString("theme",theme);

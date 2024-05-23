@@ -35,7 +35,7 @@ public class Preference extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preference);
 
-        // Inicializa las vistas
+
         spinnerPreference = findViewById(R.id.spinner);
         radioGroupTheme = findViewById(R.id.radio_group);
         rdark = findViewById(R.id.radio_dark);
@@ -43,23 +43,33 @@ public class Preference extends AppCompatActivity {
         rdsystem = findViewById(R.id.radio_system);
         back = findViewById(R.id.button_back);
         apply = findViewById(R.id.button_apply);
+        /**
+         * Configura el Spinner
+         */
 
-        // Configura el Spinner
+
         String[] languages = getResources().getStringArray(R.array.languajes);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, languages);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPreference.setAdapter(adapter);
 
-        // Carga las preferencias guardadas
+        /**
+         *   Carga las preferencias guardadas
+          */
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String selectedLanguage = sharedPreferences.getString("language", "es");
         String selectedTheme = sharedPreferences.getString("theme", "system");
 
-        // Configura el Spinner según las preferencias guardadas
+        /**
+         *  Configura el Spinner según las preferencias guardadas
+         */
         int languagePosition = adapter.getPosition(selectedLanguage);
         spinnerPreference.setSelection(languagePosition);
 
-        // Configura los RadioButtons según las preferencias guardadas
+        /**
+         *  Configura los RadioButtons según las preferencias guardadas
+         */
         if ("light".equals(selectedTheme)) {
             rdlight.setChecked(true);
         } else if ("dark".equals(selectedTheme)) {
@@ -68,7 +78,9 @@ public class Preference extends AppCompatActivity {
             rdsystem.setChecked(true);
         }
 
-        // Configura los listeners para guardar las preferencias
+        /**
+         *  Configura los listeners para guardar las preferencias
+         */
         spinnerPreference.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -82,6 +94,9 @@ public class Preference extends AppCompatActivity {
                 // No se hace nada
             }
         });
+        /**
+         * comprueba el id y si el id es el indicado pues lo cambia.
+         */
 
         radioGroupTheme.setOnCheckedChangeListener((group, checkedId) -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -95,7 +110,9 @@ public class Preference extends AppCompatActivity {
             editor.apply();
         });
 
-        // Configura el botón de aplicar cambios
+        /**
+         *   Configura el botón de aplicar cambios
+         */
         apply.setOnClickListener(v -> {
             // Recarga la actividad principal para aplicar los cambios
             Intent intent = new Intent(this, MainActivity.class);

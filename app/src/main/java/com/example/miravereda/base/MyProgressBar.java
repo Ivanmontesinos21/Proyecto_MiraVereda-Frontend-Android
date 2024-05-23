@@ -32,6 +32,10 @@ public class MyProgressBar extends ProgressBar {
         this.rootView.addView(this);
     }
 
+    /**
+     * para mostrar la barra de progreso
+     */
+
     public void show(){
 
         for(int i = 0; i <rootView.getChildCount(); i++){
@@ -43,6 +47,10 @@ public class MyProgressBar extends ProgressBar {
         }
     }
 
+    /**
+     * para esconder la barra de progreso.
+     */
+
     public void hide() {
         for (int i = 0; i < rootView.getChildCount(); i++) {
             View child = rootView.getChildAt(i);
@@ -52,6 +60,10 @@ public class MyProgressBar extends ProgressBar {
                 child.setVisibility(View.GONE);
         }
     }
+
+    /**
+     * para centrar la barra de progreso
+     */
 
     public void center(){
         if (rootView instanceof ConstraintLayout) {

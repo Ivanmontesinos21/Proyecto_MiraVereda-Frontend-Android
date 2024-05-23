@@ -11,11 +11,13 @@ import retrofit2.Retrofit;
 
 public class CallMethods <T>{
 
+
     private Retrofit retrofit=new Retrofit.Builder().baseUrl(Parameters.URL).build();
 
     private ApiService service=retrofit.create(ApiService.class);
 
     private static CallMethods callMethods;
+
 
     public static CallMethods getCallMethods(){
         if (callMethods==null)
@@ -23,6 +25,11 @@ public class CallMethods <T>{
         return callMethods;
     }
 
+    /**
+     *
+     * @param url la ip a la que realizamos las llamadas
+     * @return un string
+     */
     public String get(String url){
         Call<ResponseBody> call= service.getCall(url);
         try {
@@ -32,6 +39,13 @@ public class CallMethods <T>{
         }
         return null;
     }
+
+    /**
+     *
+     * @param url la ip a la que lo mandamos
+     * @param data la información que enviamos
+     * @return un string
+     */
 
     public String post(String url, RequestBody data){
         Call<ResponseBody> call= service.postCall(url,data);
@@ -43,6 +57,13 @@ public class CallMethods <T>{
         return null;
     }
 
+    /**
+     *
+     * @param url la ip a  la que se lo mandamos
+     * @param data la informacion que actualizamos  envia
+     * @return una respuesta de string
+     */
+
     public String put(String url,RequestBody data){
         Call<ResponseBody> call=service.putCall(url,data);
         try {
@@ -53,6 +74,13 @@ public class CallMethods <T>{
         return null;
     }
 
+    /**
+     *
+     * @param url la ip  a la que hacemos las llamadas
+     * @param data la info que utilizamos
+     * Como su nombre indica sin return.
+     */
+
     public void putWithoutReturn(String url,RequestBody data){
         Call<ResponseBody> call=service.putCall(url,data);
         try {
@@ -62,6 +90,11 @@ public class CallMethods <T>{
         }
     }
 
+    /**
+     *
+     * @param url la ip donde hacemos las llamadas
+     * @return una respuesta en formato string
+     */
     public String delete(String url){
         Call<ResponseBody> call=service.deleteCall(url);
         try {

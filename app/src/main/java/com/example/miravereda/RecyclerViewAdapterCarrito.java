@@ -25,6 +25,11 @@ public class RecyclerViewAdapterCarrito extends RecyclerView.Adapter<MyViewHolde
     List<ContenidoAudiovisual> contenidoAudiovisuales;
 
 
+    /**
+     *
+     * @param activity la actividad que recibe como parametro
+     * @param contenidoAudiovisuals y la lista que recibe por parametro
+     */
     public RecyclerViewAdapterCarrito(CarritoActivity activity, List<ContenidoAudiovisual> contenidoAudiovisuals){
         super();
         this.activity = activity;
@@ -32,12 +37,27 @@ public class RecyclerViewAdapterCarrito extends RecyclerView.Adapter<MyViewHolde
         layoutInflater=(LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     *
+     * @param parent The ViewGroup into which the new View will be added after it is bound to
+     *               an adapter position.
+     * @param viewType The view type of the new View.
+     *
+     * @return
+     */
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view=layoutInflater.inflate(R.layout.recycler_item_carrito,parent,false);
         return new MyViewHolder(view);
     }
+
+    /**
+     *
+     * @param holder The ViewHolder which should be updated to represent the contents of the
+     *        item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -55,11 +75,20 @@ public class RecyclerViewAdapterCarrito extends RecyclerView.Adapter<MyViewHolde
         });
     }
 
+    /**
+     *
+     * @return el tamaño de la lista
+     */
+
     @Override
     public int getItemCount() {
         return contenidoAudiovisuales.size();
     }
 }
+
+/**
+ * La clase MyViewHolder
+ */
 
 
 class MyViewHolder extends RecyclerView.ViewHolder{
@@ -71,6 +100,10 @@ class MyViewHolder extends RecyclerView.ViewHolder{
 
     TextView descripcionpelicula;
 
+    /**
+     *
+     * @param itemView la vista que recibe y sobre la cual va a trabajar
+     */
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);

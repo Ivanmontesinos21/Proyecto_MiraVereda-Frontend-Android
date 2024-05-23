@@ -36,12 +36,19 @@ public class VistaPeliculaActivity extends BaseActivity implements CallInterface
     private Button btnComprar;
     private double totalCarrito;
 
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_pelicula);
 
-
+        //inicializamos todo
         contenidoAudiovisual=(ContenidoAudiovisual) getIntent().getExtras().getSerializable("ca");
         imageView = findViewById(R.id.imagendetail);
         titulo = findViewById(R.id.titulo);
@@ -59,7 +66,9 @@ public class VistaPeliculaActivity extends BaseActivity implements CallInterface
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float newRating, boolean fromUser) {
-                if (fromUser) {
+                if (fromUser){
+
+
 
                 }
             }

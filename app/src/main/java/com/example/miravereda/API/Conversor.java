@@ -23,15 +23,38 @@ public class Conversor {
         return json;
     }
 
+    /**
+     *
+     * @param data
+     * @return
+     * @param <T>
+     */
+
     public <T> String toJson(List<T> data){
         String json = gson.toJson(data);
         return json;
     }
 
+    /**
+     *
+     * @param json
+     * @param clazz
+     * @return
+     * @param <T>
+     */
+
     public <T> T fromJson(String json, Class<T> clazz){
         T object = gson.fromJson(json, clazz);
         return object;
     }
+
+    /**
+     *
+     * @param json
+     * @param clazz
+     * @return
+     * @param <T>
+     */
 
     public <T> List<T> fromJsonList(String json, Class<T> clazz){
         Type typeOfT = TypeToken.getParameterized(List.class, clazz).getType();

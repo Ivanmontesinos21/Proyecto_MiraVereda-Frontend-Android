@@ -45,6 +45,13 @@ public class MainActivity extends BaseActivity implements CallInterface {
     boolean valido;
     private ImageButton ibpreferencias;
 
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +63,9 @@ public class MainActivity extends BaseActivity implements CallInterface {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        /**
+         * Inicializamos todos los botones y textos que vamos a usar
+         */
 
         iniciarSesion=findViewById(R.id.iniciarBoton);
         forgetPassword=findViewById(R.id.recordarcontrasenya);
@@ -63,6 +73,9 @@ public class MainActivity extends BaseActivity implements CallInterface {
         usertext=findViewById(R.id.username);
         password=findViewById(R.id.password);
         ibpreferencias=findViewById(R.id.ibpreferencias);
+        /**
+         * Esto es para elegir el tema
+         */
 
         SharedPreferences prefs2 = PreferenceManager.getDefaultSharedPreferences(this);
         String theme = prefs2.getString("theme", "auto");
@@ -73,6 +86,9 @@ public class MainActivity extends BaseActivity implements CallInterface {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         }
+        /**
+         * Esto es para el inicio de sesión
+         */
 
         SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
         if(!prefs.getString("usuario", "").isEmpty()) {
@@ -85,27 +101,42 @@ public class MainActivity extends BaseActivity implements CallInterface {
                 executeCall(this);
             }
         }
+        /**
+         * Este es el onclick para crear una cuenta y te manda a la actividad New user Activity
+         */
 
         createAccount.setOnClickListener(v -> {
             Intent intent=new Intent(this, NewUserActivity.class);
             intent.putExtra("username",usertext.getText().toString());
             startActivity(intent);
         });
+        /**
+         * Es para poder cambiar la contraseña si se le ha olvidado al usuario y mediante el intent te manda a la actividad UpdateCuentaActivity
+         */
         forgetPassword.setOnClickListener(v -> {
             Intent intent=new Intent(this, UpdateCuentaActivity.class);
             startActivity(intent);
         });
+        /**
+         * es para iniciar sesion en una cuenta ya creada
+         */
 
         iniciarSesion.setOnClickListener(v->{
             showProgress();
             executeCall(this);
         });
+        /**
+         * Para cambiar las preferencias de cambio de tema
+         */
         ibpreferencias.setOnClickListener(v -> {
             Intent intent=new Intent(this, Preference.class);
             startActivity(intent);
         });
     }
 
+    /**
+     * Realiza cambios en segundo plano
+     */
     @Override
     public void doInUI() {
         if (usuario != null) {
@@ -124,6 +155,10 @@ public class MainActivity extends BaseActivity implements CallInterface {
         }
         hideProgress();
     }
+
+    /**
+     * Realiza cambios en segundo plano que se muestran en la pantalla
+     */
 
     @Override
     public void doInBackground() {

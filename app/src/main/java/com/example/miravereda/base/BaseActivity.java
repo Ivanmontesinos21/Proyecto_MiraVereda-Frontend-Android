@@ -44,9 +44,13 @@ public class BaseActivity extends AppCompatActivity {
         progressBar.hide();
     }
 
+    /**
+     *    Sobreescribimos el metodo para asociar a la barra de progreso al ContraintLayout o RelativeLayout
+     *     y asi poder centrarla y manipular la visibilidad del resto de componentes del ViewGroup
+     * @param layout Resource ID to be inflated.
+     *
+     */
 
-    // Sobreescribimos el metodo para asociar a la barra de progreso al ContraintLayout o RelativeLayout
-    // y asi poder centrarla y manipular la visibilidad del resto de componentes del ViewGroup
     @Override
     public void setContentView(int layout){
         super.setContentView(layout);

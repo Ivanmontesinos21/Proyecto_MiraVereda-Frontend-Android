@@ -42,6 +42,14 @@ public class SecondScreen extends BaseActivity implements CallInterface {
     private List<ContenidoAudiovisual> contenidosAudiovisuales;
     private int newItemCount;
 
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,14 +80,26 @@ public class SecondScreen extends BaseActivity implements CallInterface {
         showProgress();
     }
 
+    /**
+     *
+     * @param view en esta vista enviamos informacion a la clase Preference
+     */
+
     public void openSettings(View view) {
         Intent intent = new Intent(this, Preference.class);
         startActivity(intent);
     }
 
+
+
     public void loadMore() {
         executeCall(this);
     }
+
+    /**
+     *
+     * @param view trabajamos en la vista y al cambiar algo lo dejamos
+     */
 
     public void logOut(View view) {
         SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);

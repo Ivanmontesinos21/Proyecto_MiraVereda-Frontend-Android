@@ -57,6 +57,11 @@ public class CarritoActivity extends BaseActivity implements CallInterface {
         executeCall(this);
     }
 
+    /**
+     *
+     * @param view Le pasamos una vista que es donde va a funcionar el metodo
+     */
+
     public void comprar(View view) {
         showProgress();
         CarritoActivity activity = this;
@@ -80,6 +85,11 @@ public class CarritoActivity extends BaseActivity implements CallInterface {
             }
         });
     }
+
+    /**
+     *
+     * @param id le pasamos la id para asi que se al eliminar del carrito vayamos directamente al que queremos por la id
+     */
 
     public void quitarDelCarrito(int id) {
         showProgress();

@@ -17,9 +17,23 @@ public class ImageDownloader {
     private static RequestQueue colaPeticiones ;
     private final static String TAG = ImageDownloader.class.getName();
 
+    /**
+     *
+     * @param url es la ip a la que realizamos las llamadas
+     * @param imageView  y el image view es donde vamos a cargar la imagen .
+     */
+
     public static void downloadImage(String url, ImageView imageView){
         Picasso.get().load(url).into(imageView);
     }
+
+    /**
+     *
+     * @param context
+     * @param url la ip donde realizamos las peticiones
+     * @param imageView donde guardamos la imagen
+     * @param defaultDrawable
+     */
 
     public static void downloadImage(Context context, String url, ImageView imageView, int defaultDrawable){
         ImageRequest peticion = new ImageRequest(
@@ -38,6 +52,12 @@ public class ImageDownloader {
         );
         getRequestQueue(context).add(peticion);
     }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
 
     private static RequestQueue getRequestQueue(Context context){
         if(colaPeticiones==null)

@@ -16,10 +16,18 @@ import androidx.preference.PreferenceViewHolder;
 import java.util.Arrays;
 
 public class SpinnerPreference extends Preference {
+
     public SpinnerPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setWidgetLayoutResource(R.layout.spinner_preference_layout);
     }
+
+    /**
+     *
+     * @param holder The ViewHolder that provides references to the views to fill in. These views
+     *               will be recycled, so you should not hold a reference to them after this method
+     *               returns.
+     */
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder){
         super.onBindViewHolder(holder);

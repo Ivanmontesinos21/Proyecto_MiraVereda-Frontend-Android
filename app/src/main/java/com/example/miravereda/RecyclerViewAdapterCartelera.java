@@ -31,20 +31,39 @@ public class RecyclerViewAdapterCartelera extends RecyclerView.Adapter<ViewHolde
 
     public LayoutInflater layoutInflater;
 
+    /**
+     *
+     * @param activity La actividad sobre la que va a trabajar
+     * @param contenidosAudiovisuales La lista sobre la que va a trabajar
+     */
+
     public RecyclerViewAdapterCartelera(SecondScreen activity, List<ContenidoAudiovisual> contenidosAudiovisuales){
         super();
         this.activity = activity;
         this.contenidosAudiovisuales = contenidosAudiovisuales;
         layoutInflater=(LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
-
+    /**
+     *
+     * @param parent The ViewGroup into which the new View will be added after it is bound to
+     *               an adapter position.
+     * @param viewType The view type of the new View.
+     *
+     * @return el viewholder
+     */
     @NonNull
     @Override
     public ViewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view=layoutInflater.inflate(R.layout.recycler_items_catalogo_peliculas,parent,false);
         return new ViewHolder2(view);
     }
+
+    /**
+     *
+     * @param holder The ViewHolder which should be updated to represent the contents of the
+     *        item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder2 holder, int position) {
@@ -73,11 +92,20 @@ public class RecyclerViewAdapterCartelera extends RecyclerView.Adapter<ViewHolde
         }
     }
 
+    /**
+     *
+     * @return el tamaño de la lista +1
+     */
+
     @Override
     public int getItemCount() {
         return contenidosAudiovisuales.size() + 1;
     }
 }
+
+/**
+ * La clase ViewHolder2
+ */
 
 class ViewHolder2 extends RecyclerView.ViewHolder{
 
