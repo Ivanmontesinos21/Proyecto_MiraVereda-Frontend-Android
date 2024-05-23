@@ -50,14 +50,31 @@
             android:layout_width="56dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@android:color/transparent"
             android:scaleType="fitCenter"
+            android:tint="@color/icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ibpreferencias2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/cart_shopping_solid"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/ibpreferencias2"
+            android:layout_width="56dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@android:color/transparent"
+            android:onClick="openSettings"
+            android:scaleType="fitCenter"
+            android:tint="@color/icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/cart_shopping_solid"
+            app:srcCompat="@drawable/gear_solid"
             tools:ignore="SpeakableTextPresentCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

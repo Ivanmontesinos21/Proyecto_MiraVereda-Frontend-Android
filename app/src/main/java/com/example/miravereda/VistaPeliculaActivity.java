@@ -28,11 +28,10 @@ import com.example.miravereda.model.Credenciales;
 public class VistaPeliculaActivity extends BaseActivity implements CallInterface {
     private ImageView imageView;
     private TextView titulo;
+    private TextView descripcion;
     private TextView autor;
     private TextView precio;
-    private TextView nota;
     private ContenidoAudiovisual contenidoAudiovisual;
-    private TextView notaMedia;
     private RatingBar ratingBar;
     private Button btnComprar;
     private double totalCarrito;
@@ -46,25 +45,22 @@ public class VistaPeliculaActivity extends BaseActivity implements CallInterface
         contenidoAudiovisual=(ContenidoAudiovisual) getIntent().getExtras().getSerializable("ca");
         imageView = findViewById(R.id.imagendetail);
         titulo = findViewById(R.id.titulo);
+        descripcion = findViewById(R.id.descripcionDetail);
         autor = findViewById(R.id.autor);
         precio = findViewById(R.id.precio);
-        nota = findViewById(R.id.nota);
-        notaMedia = findViewById(R.id.notaMedia);
         ratingBar = findViewById(R.id.ratingBar);
         btnComprar = findViewById(R.id.btnComprar);
         ImageDownloader.downloadImage(contenidoAudiovisual.getImagenUrl(),imageView);
         titulo.setText(contenidoAudiovisual.getTitulo());
-        autor.setText(contenidoAudiovisual.getNombreDirector());
-        precio.setText(Double.toString((double)contenidoAudiovisual.getPrecio() / 100.0));
-        notaMedia.setText(Double.toString(contenidoAudiovisual.getValoracionMedia() / 100.0));
+        descripcion.setText(contenidoAudiovisual.getDescripcion());
+        autor.setText("Director: " + contenidoAudiovisual.getNombreDirector());
+        precio.setText(((double)contenidoAudiovisual.getPrecio() / 100.0) + "€");
         ratingBar.setRating((float) contenidoAudiovisual.getValoracionMedia());
-        float averageRating =0;
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float newRating, boolean fromUser) {
                 if (fromUser) {
-                    float newAverageRating = (averageRating + newRating) / 2;
-                    notaMedia.setText("Nota Media: " + newAverageRating);
+
                 }
             }
         });

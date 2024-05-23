@@ -72,6 +72,11 @@ public class SecondScreen extends BaseActivity implements CallInterface {
         showProgress();
     }
 
+    public void openSettings(View view) {
+        Intent intent = new Intent(this, Preference.class);
+        startActivity(intent);
+    }
+
     public void loadMore() {
         executeCall(this);
     }

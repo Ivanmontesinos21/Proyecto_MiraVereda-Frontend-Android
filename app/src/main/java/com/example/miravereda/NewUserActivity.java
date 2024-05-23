@@ -7,7 +7,6 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,9 +17,7 @@ import com.example.miravereda.base.CallInterface;
 import com.example.miravereda.model.NewUsuario;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Date;
 
 public class NewUserActivity extends BaseActivity implements CallInterface {
 
@@ -37,6 +34,8 @@ public class NewUserActivity extends BaseActivity implements CallInterface {
     private TextInputEditText Email;
 
     private TextInputEditText Eusername;
+    private TextInputEditText Edomicilio;
+    private TextInputEditText EcodigoPostal;
     NewUsuario usuario;
 
 
@@ -58,10 +57,12 @@ public class NewUserActivity extends BaseActivity implements CallInterface {
         datePicker=findViewById(R.id.date);
         Email = findViewById(R.id.mailnew);
         Epassword = findViewById(R.id.passwordnew);
+        Edomicilio = findViewById(R.id.domicilionew);
+        EcodigoPostal = findViewById(R.id.codpostalnew);
         crearusuario.setOnClickListener(v -> {
             if (crearusuario.toString().isEmpty() || Enombre.toString().isEmpty() || Eapellidos.toString().isEmpty() || Email.toString().isEmpty() ||
                       Epassword.toString().isEmpty()) {
-                Toast.makeText(this, "Porfavor rellena todos los campos son requeridos", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Por favor, rellene todos los campos son requeridos", Toast.LENGTH_LONG).show();
             } else {
                 executeCall(this);
             }
@@ -77,10 +78,13 @@ public class NewUserActivity extends BaseActivity implements CallInterface {
 
     @Override
     public void doInUI() {
-        Toast.makeText(this,"Usuario creado con el email: " + Email.getText().toString(),Toast.LENGTH_LONG).show();
-        Intent intent=new Intent(this, MainActivity.class);
-        startActivity(intent);
-
+        if(usuario != null) {
+            Toast.makeText(this, "Usuario creado", Toast.LENGTH_LONG).show();
+            finish();
+        }
+        else {
+            Toast.makeText(this, "Error al crear usuario", Toast.LENGTH_LONG).show();
+        }
     }
 
     private long getDate() {
@@ -98,10 +102,17 @@ public class NewUserActivity extends BaseActivity implements CallInterface {
         String nombre=Enombre.getText().toString();
         String apellidos=Eapellidos.getText().toString();
         String email=Email.getText().toString();
+        String domicilio = Edomicilio.getText().toString();
+        String codigoPostal = EcodigoPostal.getText().toString();
         long date1=getDate();
         String password=Epassword.getText().toString();
-        NewUsuario u=new NewUsuario(nombre,apellidos,email,date1,password);
-        usuario=Connector.getConector().post(NewUsuario.class,u,"usuario/");
+        NewUsuario u=new NewUsuario(0,nombre,apellidos,email,date1,password,domicilio,codigoPostal);
+        try {
+            usuario = Connector.getConector().post(NewUsuario.class, u, "usuario/");
+        }
+        catch (NullPointerException e) {
+            usuario = null;
+        }
 
     }
 }

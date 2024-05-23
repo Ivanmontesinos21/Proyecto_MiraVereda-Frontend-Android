@@ -12,9 +12,11 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.miravereda.API.Connector;
@@ -62,6 +64,16 @@ public class MainActivity extends BaseActivity implements CallInterface {
         password=findViewById(R.id.password);
         ibpreferencias=findViewById(R.id.ibpreferencias);
 
+        SharedPreferences prefs2 = PreferenceManager.getDefaultSharedPreferences(this);
+        String theme = prefs2.getString("theme", "auto");
+        if (theme.equals("dark")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else if (theme.equals("light")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        }
+
         SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
         if(!prefs.getString("usuario", "").isEmpty()) {
             String email = prefs.getString("mail", "");
@@ -74,24 +86,14 @@ public class MainActivity extends BaseActivity implements CallInterface {
             }
         }
 
-        ActivityResultLauncher<Intent> activityResultLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
-           if (result.getResultCode()==RESULT_CANCELED)
-               Toast.makeText(this,"Volviendo atras",Toast.LENGTH_LONG).show();
-           else if (result.getResultCode()==RESULT_OK){
-               Intent intent= result.getData();
-               String username=intent.getExtras().toString();
-               Toast.makeText(this,"Bienvenido " + username,Toast.LENGTH_LONG).show();
-           }
-        });
-
         createAccount.setOnClickListener(v -> {
             Intent intent=new Intent(this, NewUserActivity.class);
             intent.putExtra("username",usertext.getText().toString());
-            activityResultLauncher.launch(intent);
+            startActivity(intent);
         });
         forgetPassword.setOnClickListener(v -> {
             Intent intent=new Intent(this, UpdateCuentaActivity.class);
-            activityResultLauncher.launch(intent);
+            startActivity(intent);
         });
 
         iniciarSesion.setOnClickListener(v->{
@@ -100,13 +102,12 @@ public class MainActivity extends BaseActivity implements CallInterface {
         });
         ibpreferencias.setOnClickListener(v -> {
             Intent intent=new Intent(this, Preference.class);
-            activityResultLauncher.launch(intent);
+            startActivity(intent);
         });
     }
 
     @Override
     public void doInUI() {
-        hideProgress();
         if (usuario != null) {
             SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
@@ -119,8 +120,9 @@ public class MainActivity extends BaseActivity implements CallInterface {
             Intent intent = new Intent(this, SecondScreen.class);
             startActivity(intent);
         } else{
-            Toast.makeText(this,"El usuario con el mail: " + usertext.getText().toString() +  " no existe",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Error de inicio de sesión",Toast.LENGTH_LONG).show();
         }
+        hideProgress();
     }
 
     @Override
