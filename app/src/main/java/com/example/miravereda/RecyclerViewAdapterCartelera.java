@@ -49,6 +49,8 @@ public class RecyclerViewAdapterCartelera extends RecyclerView.Adapter<ViewHolde
     @Override
     public void onBindViewHolder(@NonNull ViewHolder2 holder, int position) {
         if(position < contenidosAudiovisuales.size()) {
+            holder.main.setVisibility(View.VISIBLE);
+            holder.progress.setVisibility(View.INVISIBLE);
             ContenidoAudiovisual ca = contenidosAudiovisuales.get(position);
             String imagenUrl = ca.getImagenUrl();
             if (imagenUrl != null)
