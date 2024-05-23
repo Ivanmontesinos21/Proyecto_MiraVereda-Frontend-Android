@@ -8,4 +8,12 @@ public class Credenciales {
         this.email = email;
         this.contrasenya =contrasenya;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getContrasenya() {
+        return contrasenya;
+    }
 }

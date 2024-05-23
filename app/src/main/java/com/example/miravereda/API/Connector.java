@@ -53,11 +53,27 @@ public class Connector {
     public <T, T2> T post(Class<T> clazz, T2 data, String path){
         String url = Parameters.URL + Parameters.URL_OPTIONS + path;
         String jsonObject = conversor.toJson(data);
-        System.out.println(jsonObject);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonObject);
         String jsonResponse = callMethodsObject.post(url, body);
         if(jsonResponse != null)
             return conversor.fromJson(jsonResponse, clazz);
+        return null;
+    }
+
+    public <T> String postString(T data, String path){
+        String url = Parameters.URL + Parameters.URL_OPTIONS + path;
+        String jsonObject = conversor.toJson(data);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonObject);
+        return callMethodsObject.post(url, body);
+    }
+
+    public <T, T2> List<T> postAsList(Class<T> clazz, T2 data, String path){
+        String url = Parameters.URL + Parameters.URL_OPTIONS + path;
+        String jsonObject = conversor.toJson(data);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonObject);
+        String jsonResponse = callMethodsObject.post(url, body);
+        if(jsonResponse != null)
+            return conversor.fromJsonList(jsonResponse, clazz);
         return null;
     }
 
@@ -86,5 +102,11 @@ public class Connector {
         return null;
     }
 
+    public <T> String delete2(T data, String path){
+        String url = Parameters.URL + Parameters.URL_OPTIONS + path;
+        String jsonObject = conversor.toJson(data);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonObject);
+        return callMethodsObject.deleteWithBody(url, body);
+    }
 
 }

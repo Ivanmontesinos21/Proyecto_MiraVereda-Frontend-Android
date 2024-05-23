@@ -62,6 +62,17 @@ public class MainActivity extends BaseActivity implements CallInterface {
         password=findViewById(R.id.password);
         ibpreferencias=findViewById(R.id.ibpreferencias);
 
+        SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
+        if(!prefs.getString("usuario", "").isEmpty()) {
+            String email = prefs.getString("mail", "");
+            String contrasenya = prefs.getString("contrasenya", "");
+            if(!email.isEmpty() && !contrasenya.isEmpty()) {
+                usertext.setText(email);
+                password.setText(contrasenya);
+                showProgress();
+                executeCall(this);
+            }
+        }
 
         ActivityResultLauncher<Intent> activityResultLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
            if (result.getResultCode()==RESULT_CANCELED)
@@ -84,6 +95,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
         });
 
         iniciarSesion.setOnClickListener(v->{
+            showProgress();
             executeCall(this);
         });
         ibpreferencias.setOnClickListener(v -> {

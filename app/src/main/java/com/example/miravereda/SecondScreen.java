@@ -1,7 +1,9 @@
 package com.example.miravereda;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import com.example.miravereda.base.MyProgressBar;
 import com.example.miravereda.model.ContenidoAudiovisual;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import kotlin.jvm.internal.PropertyReference0Impl;
@@ -37,6 +40,7 @@ public class SecondScreen extends BaseActivity implements CallInterface {
     private RecyclerViewAdapterCartelera recyclerViewAdapterCartelera;
 
     private List<ContenidoAudiovisual> contenidosAudiovisuales;
+    private int newItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,12 @@ public class SecondScreen extends BaseActivity implements CallInterface {
 
         });
 
+        contenidosAudiovisuales = new ArrayList<>();
+        recyclerViewAdapterCartelera=new RecyclerViewAdapterCartelera(this, contenidosAudiovisuales);
+        newItemCount = 0;
         recyclerView=findViewById(R.id.recyclerCartelera);
+        recyclerView.setAdapter(recyclerViewAdapterCartelera);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         imageButton=findViewById(R.id.ircarrito);
         imageButton.setOnClickListener(v->{
             Intent intent=new Intent(this, CarritoActivity.class);
@@ -60,28 +69,35 @@ public class SecondScreen extends BaseActivity implements CallInterface {
         });
 
         executeCall(this);
+        showProgress();
+    }
+
+    public void loadMore() {
+        executeCall(this);
+    }
+
+    public void logOut(View view) {
+        SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.apply();
+        finish();
     }
 
     @Override
     public void doInUI() {
         hideProgress();
-        recyclerView=findViewById(R.id.recyclerCartelera);
-        recyclerViewAdapterCartelera=new RecyclerViewAdapterCartelera(this, contenidosAudiovisuales);
-        recyclerView.setAdapter(recyclerViewAdapterCartelera);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewAdapterCartelera.notifyItemRangeChanged(0, contenidosAudiovisuales.size());
     }
 
     @Override
     public void doInBackground() {
-        contenidosAudiovisuales = Connector.getConector().getAsList(ContenidoAudiovisual.class, "pelicula/");
-    }
-
-    public void showProgress(){
-        progressBar.show();
-    }
-
-    public void hideProgress(){
-        progressBar.hide();
+        String params = "";
+        if(!contenidosAudiovisuales.isEmpty())
+            params = "?after=" + contenidosAudiovisuales.get(contenidosAudiovisuales.size() - 1).getId();
+        Collection<ContenidoAudiovisual> newCa = Connector.getConector().getAsList(ContenidoAudiovisual.class, "pelicula/" + params);
+        newItemCount = newCa.size();
+        contenidosAudiovisuales.addAll(newCa);
     }
 
 }

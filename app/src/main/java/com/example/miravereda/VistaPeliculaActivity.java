@@ -35,6 +35,7 @@ public class VistaPeliculaActivity extends BaseActivity implements CallInterface
     private TextView notaMedia;
     private RatingBar ratingBar;
     private Button btnComprar;
+    private double totalCarrito;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,17 +79,13 @@ public class VistaPeliculaActivity extends BaseActivity implements CallInterface
         SharedPreferences preferences=getSharedPreferences("usuario",MODE_PRIVATE);
         String mail=preferences.getString("mail",null);
         String contrasenya=preferences.getString("contrasenya",null);
-        Credenciales credenciales=new Credenciales(mail,contrasenya);
-        AnyadirAlCarro carro=new AnyadirAlCarro(credenciales,contenidoAudiovisual.getId());
-        Connector.getConector().post(AnyadirAlCarro.class,carro,"carrito/");
-
-
+        AnyadirAlCarro carro=new AnyadirAlCarro(mail,contrasenya,contenidoAudiovisual.getId());
+        totalCarrito = (double)Connector.getConector().post(Integer.class,carro,"carrito/") / 100.0;
     }
 
     @Override
     public void doInUI() {
-        Intent intent=new Intent(getApplicationContext(), SecondScreen.class);
-        startActivity(intent);
-        Toast.makeText(this,"La pelicula  ha sido reservada",Toast.LENGTH_LONG);
+        Toast.makeText(this, titulo.getText() + " se ha añadido al carrito. Total del carrito: " + totalCarrito + "€", Toast.LENGTH_LONG).show();
+        finish();
     }
 }

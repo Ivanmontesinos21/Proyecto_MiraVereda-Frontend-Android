@@ -1,19 +1,13 @@
 package com.example.miravereda.model;
 
 public class AnyadirAlCarro {
-    private Credenciales credenciales;
+    private String email;
+    private String contrasenya;
     private int idPelicula;
 
-    public AnyadirAlCarro(Credenciales credenciales, int id) {
-        this.credenciales = credenciales;
-        this.idPelicula = id;
-    }
-
-    public Credenciales getCredenciales() {
-        return credenciales;
-    }
-
-    public int getId() {
-        return idPelicula;
+    public AnyadirAlCarro(String email, String contrasenya, int idPelicula) {
+        this.email = email;
+        this.contrasenya = contrasenya;
+        this.idPelicula = idPelicula;
     }
 }

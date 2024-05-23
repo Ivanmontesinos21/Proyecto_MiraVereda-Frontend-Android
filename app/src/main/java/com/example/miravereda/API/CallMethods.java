@@ -72,4 +72,15 @@ public class CallMethods <T>{
         return null;
 
     }
+
+    public String deleteWithBody(String url, RequestBody data){
+        Call<ResponseBody> call=service.deleteWithBodyCall(url, data);
+        try {
+            return call.execute().body().string();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
+
+    }
 }
