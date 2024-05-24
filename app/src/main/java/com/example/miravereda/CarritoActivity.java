@@ -3,7 +3,6 @@ package com.example.miravereda;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -17,7 +16,7 @@ import android.widget.Toast;
 import com.example.miravereda.API.Connector;
 import com.example.miravereda.base.BaseActivity;
 import com.example.miravereda.base.CallInterface;
-import com.example.miravereda.model.AnyadirAlCarro;
+import com.example.miravereda.model.OperacionUsuarioPelicula;
 import com.example.miravereda.model.ContenidoAudiovisual;
 import com.example.miravereda.model.Credenciales;
 
@@ -97,7 +96,7 @@ public class CarritoActivity extends BaseActivity implements CallInterface {
         executeCall(new CallInterface() {
             @Override
             public void doInBackground() {
-                AnyadirAlCarro aac = new AnyadirAlCarro(credenciales.getEmail(), credenciales.getContrasenya(), id);
+                OperacionUsuarioPelicula aac = new OperacionUsuarioPelicula(credenciales.getEmail(), credenciales.getContrasenya(), id);
                 Connector.getConector().delete2(aac, "carrito/");
             }
 

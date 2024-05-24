@@ -75,6 +75,8 @@ public class RecyclerViewAdapterCartelera extends RecyclerView.Adapter<ViewHolde
             if (imagenUrl != null)
                 ImageDownloader.downloadImage(imagenUrl, holder.imagen);
             holder.titulo.setText(ca.getTitulo());
+            double precio = (double)ca.getPrecioConTarifa() / 100.0;
+            holder.precio.setText(precio + "€");
             holder.descripcion.setText(ca.getDescripcion());
             holder.estrellas.setRating((float) ca.getValoracionMedia());
             holder.itemView.setOnClickListener(v -> {
@@ -113,6 +115,7 @@ class ViewHolder2 extends RecyclerView.ViewHolder{
     View progress;
     ImageView imagen;
     TextView titulo;
+    TextView precio;
     TextView descripcion;
     RatingBar estrellas;
 
@@ -122,6 +125,7 @@ class ViewHolder2 extends RecyclerView.ViewHolder{
         progress = itemView.findViewById(R.id.item_catalogo_progress);
         imagen=itemView.findViewById(R.id.fotocartelera);
         titulo=itemView.findViewById(R.id.titulocartelera);
+        precio=itemView.findViewById(R.id.preciocartelera);
         descripcion=itemView.findViewById(R.id.descripcioncartelera);
         estrellas=itemView.findViewById(R.id.notacartelera);
     }

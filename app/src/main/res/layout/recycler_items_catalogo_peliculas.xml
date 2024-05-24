@@ -19,7 +19,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_catalogo_main"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="200dp"
+        tools:layout_editor_absoluteX="-83dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <ImageView
             android:id="@+id/fotocartelera"
@@ -36,14 +38,29 @@
 
         <TextView
             android:id="@+id/titulocartelera"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:maxLines="1"
             android:text="TextView"
             android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/fotocartelera"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/preciocartelera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:text="TextView"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/titulocartelera" />
 
         <TextView
             android:id="@+id/descripcioncartelera"
@@ -52,27 +69,26 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="11dp"
-            app:layout_constraintBottom_toTopOf="@+id/notacartelera"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/fotocartelera"
-            app:layout_constraintTop_toBottomOf="@+id/titulocartelera"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <RatingBar
-            android:id="@+id/notacartelera"
-            style="@style/Widget.AppCompat.RatingBar.Indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:numStars="5"
+            android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/fotocartelera" />
+            app:layout_constraintStart_toEndOf="@+id/fotocartelera"
+            app:layout_constraintTop_toBottomOf="@+id/preciocartelera" />
+
+        <RatingBar
+            android:id="@+id/notacartelera"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:numStars="5"
+            app:layout_constraintBottom_toBottomOf="@+id/preciocartelera"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/preciocartelera"
+            app:layout_constraintTop_toTopOf="@+id/preciocartelera" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
